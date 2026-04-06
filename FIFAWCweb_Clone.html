@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 - Fixture Schedule</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0f1115;
+            --card-bg: rgba(22, 25, 30, 0.85);
+            --neon-green: #39ff14;
+            --text-main: #ffffff;
+            --text-muted: #a0aab2;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            /* Cool stadium lights background effect */
+            background-image: 
+                linear-gradient(to bottom, rgba(15, 17, 21, 0.6), rgba(15, 17, 21, 1)),
+                url('https://images.unsplash.com/photo-1556056504-5c7696c4c28d?q=80&w=2076&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .tab-container {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tab {
+            padding: 12px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .tab.active {
+            background-color: var(--neon-green);
+            color: #000;
+        }
+
+        /* Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        /* Match Cards */
+        .match-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            border-color: rgba(57, 255, 20, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--neon-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .card-header i {
+            margin-right: 6px;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .team.right {
+            justify-content: flex-end;
+        }
+
+        .team-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .flag {
+            width: 36px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .vs {
+            font-weight: 800;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            margin: 0 15px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .card-footer i {
+            color: #4285f4; /* Location blue */
+            margin-right: 5px;
+        }
+
+        .group-tag {
+            color: #ff5252; /* Red trophy */
+        }
+        
+        .group-tag i {
+            color: #ff5252;
+        }
+
+        .match-number {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .team-name {
+                font-size: 0.95rem;
+            }
+            .flag {
+                width: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>FIFA World Cup 2026</h1>
+        <p class="subtitle">Complete fixture schedule for the greatest football tournament on Earth</p>
+    </header>
+
+    <div class="tabs">
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab(this)">Group Stage</div>
+            <div class="tab" onclick="switchTab(this)">Knockout Stage</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="match-grid" id="match-grid">
+            </div>
+    </div>
+
+    <script>
+        // Array containing the actual opening real-world fixtures for the 2026 World Cup
+        const matchData = [
+            { id: 1, date: "2026-06-11", time: "15:00", team1: "Mexico", flag1: "mx", team2: "South Africa", flag2: "za", stadium: "Estadio Azteca, Mexico City", group: "Group A" },
+            { id: 2, date: "2026-06-11", time: "22:00", team1: "South Korea", flag1: "kr", team2: "Czechia", flag2: "cz", stadium: "Estadio Akron, Guadalajara", group: "Group A" },
+            { id: 3, date: "2026-06-12", time: "15:00", team1: "Canada", flag1: "ca", team2: "Bosnia & Herz.", flag2: "ba", stadium: "BMO Field, Toronto", group: "Group B" },
+            { id: 4, date: "2026-06-12", time: "21:00", team1: "USA", flag1: "us", team2: "Paraguay", flag2: "py", stadium: "SoFi Stadium, Los Angeles", group: "Group D" },
+            { id: 5, date: "2026-06-13", time: "18:00", team1: "Brazil", flag1: "br", team2: "Morocco", flag2: "ma", stadium: "MetLife Stadium, New Jersey", group: "Group C" },
+            { id: 6, date: "2026-06-13", time: "21:00", team1: "Haiti", flag1: "ht", team2: "Scotland", flag2: "gb-sct", stadium: "Gillette Stadium, Boston", group: "Group C" },
+            { id: 7, date: "2026-06-13", time: "15:00", team1: "Qatar", flag1: "qa", team2: "Switzerland", flag2: "ch", stadium: "Levi's Stadium, San Francisco", group: "Group B" },
+            { id: 8, date: "2026-06-13", time: "00:00", team1: "Australia", flag1: "au", team2: "Turkey", flag2: "tr", stadium: "BC Place, Vancouver", group: "Group D" },
+            { id: 9, date: "2026-06-14", time: "13:00", team1: "Germany", flag1: "de", team2: "Curaçao", flag2: "cw", stadium: "NRG Stadium, Houston", group: "Group E" },
+            { id: 10, date: "2026-06-14", time: "16:00", team1: "Netherlands", flag1: "nl", team2: "Japan", flag2: "jp", stadium: "AT&T Stadium, Dallas", group: "Group F" },
+            { id: 11, date: "2026-06-14", time: "19:00", team1: "Ivory Coast", flag1: "ci", team2: "Ecuador", flag2: "ec", stadium: "Lincoln Financial Field, Philadelphia", group: "Group E" },
+            { id: 12, date: "2026-06-14", time: "22:00", team1: "Sweden", flag1: "se", team2: "Tunisia", flag2: "tn", stadium: "Estadio BBVA, Monterrey", group: "Group F" }
+        ];
+
+        function renderMatches() {
+            const grid = document.getElementById('match-grid');
+            
+            grid.innerHTML = matchData.map(match => `
+                <div class="match-card">
+                    <div class="card-header">
+                        <span><i class="fa-regular fa-calendar"></i> ${match.date}</span>
+                        <span><i class="fa-regular fa-clock"></i> ${match.time}</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="team">
+                            <span class="team-name">${match.team1}</span>
+                            <img src="https://flagcdn.com/w40/${match.flag1}.png" alt="${match.team1}" class="flag">
+                        </div>
+                        <div class="vs">VS</div>
+                        <div class="team right">
+                            <img src="https://flagcdn.com/w40/${match.flag2}.png" alt="${match.team2}" class="flag">
+                            <span class="team-name">${match.team2}</span>
+                        </div>
+                    </div>
+
+                    <hr>
+                    
+                    <div class="card-footer">
+                        <span><i class="fa-solid fa-location-dot"></i> ${match.stadium}</span>
+                        <span class="group-tag"><i class="fa-solid fa-trophy"></i> ${match.group}</span>
+                    </div>
+                    
+                    <div class="match-number">Match #${match.id}</div>
+                </div>
+            `).join('');
+        }
+
+        // Handle tab switching animation
+        function switchTab(clickedTab) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            clickedTab.classList.add('active');
+            
+            // In a full app, you would load knockout stage data here
+            if(clickedTab.innerText === 'Knockout Stage') {
+                document.getElementById('match-grid').innerHTML = '<p style="color:var(--text-muted); text-align:center; width:100%; grid-column: 1 / -1;">Knockout stage fixtures will be determined after the group stage.</p>';
+            } else {
+                renderMatches();
+            }
+        }
+
+        // Initialize the grid on load
+        window.onload = renderMatches;
+    </script>
+</body>
+</html>
